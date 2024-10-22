@@ -1,0 +1,8 @@
+lib: [
+  "_build/install/default/lib/calculator/META"
+  "_build/install/default/lib/calculator/dune-package"
+  "_build/install/default/lib/calculator/opam"
+]
+bin: [
+  "_build/install/default/bin/calculator"
+]

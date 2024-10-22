@@ -1,0 +1,8 @@
+(lang dune 2.9)
+(name calculator)
+
+(generate_opam_files true)
+(package
+ (name calculator)
+ (depends
+  owl))
