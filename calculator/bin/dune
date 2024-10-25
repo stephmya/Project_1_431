@@ -1,4 +1,5 @@
 (executable
  (name main)
  (public_name calculator)
- (libraries owl))
+ (libraries owl owl-base)
+ )
