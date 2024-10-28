@@ -4,7 +4,7 @@ FROM ubuntu:22.04
 # Set environment variables
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Update the system and install dependencies
+# Install necessary packages
 RUN apt-get update && \
     apt-get install -y \
     curl \
@@ -26,8 +26,16 @@ RUN opam init --disable-sandboxing -y && \
     eval $(opam env) && \
     opam install dune owl owl-base -y
 
-# Set OPAM environment for all users
-RUN echo "eval $(opam env)" >> /etc/profile
+# Remove unsupported GCC options for ARM architecture
+RUN eval $(opam env) && \
+    if [ -f ~/.opam/4.14.0/.opam-switch/build/owl.0.7.2/src/owl/dune ]; then \
+        sed -i 's/-mfpmath=sse//g' ~/.opam/4.14.0/.opam-switch/build/owl.0.7.2/src/owl/dune && \
+        sed -i 's/-msse2//g' ~/.opam/4.14.0/.opam-switch/build/owl.0.7.2/src/owl/dune; \
+    fi
+
+# Set environment variables for OpenBLAS
+ENV OPENBLAS_NUM_THREADS=1
+ENV LD_LIBRARY_PATH=/usr/lib:/usr/local/lib
 
 # Create a directory for your project
 WORKDIR /app
@@ -38,7 +46,7 @@ COPY . .
 # Navigate to the calculator directory before running Dune commands
 WORKDIR /app/calculator
 
-# Build the project (removed @install step)
+# Build the project
 RUN eval $(opam env) && dune build
 
 # Default command to run the calculator executable

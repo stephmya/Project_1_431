@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  owl-app:
+    build: .
+    container_name: owl_app_container
+    volumes:
+      - .:/app
+    command: ./main
