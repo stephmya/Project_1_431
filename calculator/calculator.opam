@@ -14,6 +14,7 @@ depends: [
   "dune" {>= "2.9"}
   "owl"
   "owl-base"
+  "opium"
   "odoc" {with-doc}
 ]
 build: [

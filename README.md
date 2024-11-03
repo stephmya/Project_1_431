@@ -7,3 +7,10 @@ docker build -t ocaml-owl-project .
 
 docker run --rm ocaml-owl-project
 
+
+
+run:
+
+docker build -t ocaml-project .
+
+docker run -p 3000:3000 ocaml-project

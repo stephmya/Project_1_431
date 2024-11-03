@@ -1,5 +1,4 @@
 (executable
- (name main)
- (public_name calculator)
- (libraries owl owl-base)
- )
+  (name main)
+  (public_name calculator)
+  (libraries opium owl owl-base tyxml))

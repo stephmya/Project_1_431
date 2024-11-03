@@ -19,6 +19,6 @@
  (name calculator)
  (synopsis "A short synopsis")
  (description "A longer description")
- (depends ocaml dune owl owl-base)
+ (depends ocaml dune owl owl-base opium)
  (tags
   (topics "to describe" your project)))
