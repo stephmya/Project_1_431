@@ -1,4 +1,3 @@
-(* main.ml *)
 open Opium
 open Owl.Maths  (* Import Owl for mathematical functions *)
 open Owl
@@ -108,8 +107,9 @@ let evaluate_expression expr =
       let mat1 = Owl.Mat.of_array [|operand1|] 1 1 in
       let mat2 = Owl.Mat.of_array [|operand2|] 1 1 in
       let result = matrix_operations mat1 mat2 operator in
-      Owl.Mat.to_string result
-    else if String.sub expr 0 4 = "sin(" then
+      let result_array = Owl.Mat.to_array result in
+      Array.fold_left (fun acc x -> acc ^ " " ^ string_of_float x) "" result_array
+    else if String.length expr >= 4 && String.sub expr 0 4 = "sin(" then
       let operand = String.sub expr 4 (String.length expr - 5) |> float_of_string in
       let result = sin operand in
       Printf.sprintf "%.2f" result
@@ -202,3 +202,26 @@ let () =
   |> App.post "/calculate" handle_calculation
   |> App.port 3000
   |> App.run_command
+
+
+
+
+
+  (* main.ml
+open Opium
+open Owl.Maths
+open MatrixOperations
+open ExpressionEvaluator
+open CalculatorPage
+
+(* Main function *)
+let () =
+  (* Example usage of evaluate_expression *)
+  let expr = "3+4" in
+  let result = ExpressionEvaluator.evaluate_expression expr in
+  Printf.printf "Result of '%s': %s\n" expr result;
+
+  (* Example usage of calculator_page *)
+  let display = "0" in
+  let page = CalculatorPage.calculator_page display in
+  Printf.printf "Generated HTML page:\n%s\n" page *)
