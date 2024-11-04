@@ -1,24 +1,2 @@
 (lang dune 2.9)
-
 (name calculator)
-
-(generate_opam_files true)
-
-(source
- (github username/reponame))
-
-(authors "Author Name")
-
-(maintainers "Maintainer Name")
-
-(license LICENSE)
-
-(documentation https://url/to/documentation)
-
-(package
- (name calculator)
- (synopsis "A short synopsis")
- (description "A longer description")
- (depends ocaml dune owl owl-base opium)
- (tags
-  (topics "to describe" your project)))

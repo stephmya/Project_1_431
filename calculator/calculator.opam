@@ -11,10 +11,12 @@ doc: "https://url/to/documentation"
 bug-reports: "https://github.com/username/reponame/issues"
 depends: [
   "ocaml"
-  "dune" {>= "2.9"}
+  "dune" {>= "2.8"}
   "owl"
   "owl-base"
   "opium"
+  "tyxml"
+  "str"
   "odoc" {with-doc}
 ]
 build: [
@@ -26,11 +28,9 @@ build: [
     name
     "-j"
     jobs
-    "--promote-install-files=false"
     "@install"
     "@runtest" {with-test}
     "@doc" {with-doc}
   ]
-  ["dune" "install" "-p" name "--create-install-files" name]
 ]
 dev-repo: "git+https://github.com/username/reponame.git"
