@@ -1,6 +1,8 @@
 (* main.ml *)
 open Opium
 open Owl.Maths  (* Import Owl for mathematical functions *)
+open Owl
+open Owl.Mat
 
 (* Inline CSS as a string *)
 let inline_css = "
@@ -70,6 +72,30 @@ button:hover {
 }
 "
 
+(* Function to add two matrices *)
+let add_matrices mat1 mat2 =
+  Owl.Mat.add mat1 mat2
+
+(* Function to subtract two matrices *)
+let sub_matrices mat1 mat2 =
+  Owl.Mat.sub mat1 mat2
+
+(* Function to multiply two matrices *)
+let multiply_matrices mat1 mat2 =
+  Owl.Mat.dot mat1 mat2
+
+(* Function to divide two matrices *)
+let divide_matrices mat1 mat2 =
+  Owl.Mat.div mat1 mat2
+
+(* Function to perform matrix operations based on the operator *)
+let matrix_operations mat1 mat2 operator =
+  match operator with
+  | "+" -> add_matrices mat1 mat2
+  | "-" -> sub_matrices mat1 mat2
+  | "*" -> multiply_matrices mat1 mat2
+  | "/" -> divide_matrices mat1 mat2
+  | _ -> failwith "Unknown operator"
 
 (* Function to evaluate expressions *)
 let evaluate_expression expr =
@@ -79,31 +105,19 @@ let evaluate_expression expr =
       let operand1 = Str.matched_group 1 expr |> float_of_string in
       let operator = Str.matched_group 2 expr in
       let operand2 = Str.matched_group 3 expr |> float_of_string in
-      let result =
-        match operator with
-        | "+" -> operand1 +. operand2
-        | "-" -> operand1 -. operand2
-        | "*" -> operand1 *. operand2
-        | "/" -> if operand2 = 0. then failwith "Division by zero" else operand1 /. operand2
-        | _ -> failwith "Unknown operator"
-      in
-      Printf.sprintf "%.2f" result
+      let mat1 = Owl.Mat.of_array [|operand1|] 1 1 in
+      let mat2 = Owl.Mat.of_array [|operand2|] 1 1 in
+      let result = matrix_operations mat1 mat2 operator in
+      Owl.Mat.to_string result
     else if String.sub expr 0 4 = "sin(" then
       let operand = String.sub expr 4 (String.length expr - 5) |> float_of_string in
-      Printf.sprintf "%.2f" (sin operand)
-    else if String.sub expr 0 4 = "cos(" then
-      let operand = String.sub expr 4 (String.length expr - 5) |> float_of_string in
-      Printf.sprintf "%.2f" (cos operand)
-    else if String.sub expr 0 4 = "exp(" then
-      let operand = String.sub expr 4 (String.length expr - 5) |> float_of_string in
-      Printf.sprintf "%.2f" (exp operand)
-    else if String.sub expr 0 4 = "log(" then
-      let operand = String.sub expr 4 (String.length expr - 5) |> float_of_string in
-      if operand <= 0. then "Error: Logarithm undefined" else Printf.sprintf "%.2f" (log operand)
+      let result = sin operand in
+      Printf.sprintf "%.2f" result
     else
-      "Error: Unsupported expression format"
+      "Invalid expression"
   with
-  | Failure _ -> "Error: Invalid input"
+  | Failure msg -> msg
+  | _ -> "Error"
 
   let calculator_page display =
     let open Tyxml.Html in
