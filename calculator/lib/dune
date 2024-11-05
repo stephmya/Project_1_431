@@ -4,6 +4,6 @@
 
 (library
  (name calculator_lib)
- ; (public_name calculator_lib)      ; This makes the library accessible to the executable
- (modules calculator layout css)   ; Include all modules in the library
+ ; (public_name calculator_lib)
+ (modules calculator layout css)
  (libraries owl opium tyxml str))

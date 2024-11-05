@@ -1,11 +1,4 @@
-; (executable
-;   (name main)
-;   (public_name calculator)
-;   (libraries opium owl owl-base tyxml))
-;   ; (modules matrix_operations expression_evaluator calculator_page main))
-
-
 (executable
  (name main)
- (public_name calculator)           ; Name of the executable
+ (public_name calculator)
  (libraries calculator_lib opium))
