@@ -1,4 +1,4 @@
-# Project 1: Calculator GUI with OCaml and Owl
+# Project 1 CS431: Calculator GUI with OCaml and Owl
 
 ## Contributors
 
@@ -33,3 +33,6 @@ docker run -p 3000:3000 ocaml-project
 This will start the server, making the GUI accessible at `http://localhost:3000`.
 
 ---
+
+### What This Program Does
+### Project Timeline
