@@ -10,6 +10,7 @@ let handle_index _ =
   |> Response.add_header ("Content-Type", "text/html")
   |> Lwt.return
 
+(* Handler for the calculation form submission *)
 let handle_calculation req =
   let open Lwt.Syntax in
   let* form = Request.to_urlencoded req in
