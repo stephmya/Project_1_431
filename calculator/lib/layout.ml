@@ -29,6 +29,9 @@ body {
   border-radius: 5px;
   background-color: #eaeaea;
 }
+.buttons {
+  display: contents;
+}
 .buttons button {
   font-size: 18px;
   padding: 20px;
@@ -80,7 +83,11 @@ let calculator_page display =
            if (value === 'C') {
              display.value = '';
            } else if (value === '=') {
-             display.form.submit();
+             try {
+               display.value = eval(display.value);
+             } catch (e) {
+               display.value = 'Error';
+             }
            } else {
              appendValue(value);
            }
@@ -101,8 +108,8 @@ let calculator_page display =
             a_placeholder "0";
           ] (); 
           button ~a:[a_button_type `Button; a_class ["clear"]; a_onclick "handleButtonClick('C')"] [txt "C"];
-          button ~a:[a_button_type `Button; a_class ["operator"]; a_onclick "handleButtonClick('/')"] [Unsafe.data "&divide;"];
-          button ~a:[a_button_type `Button; a_class ["operator"]; a_onclick "handleButtonClick('*')"] [Unsafe.data "&times;"];
+          button ~a:[a_button_type `Button; a_class ["function"]; a_onclick "handleButtonClick('cos(')"] [txt "cos"];
+          button ~a:[a_button_type `Button; a_class ["function"]; a_onclick "handleButtonClick('sin(')"] [txt "sin"];
           button ~a:[a_button_type `Button; a_class ["operator"]; a_onclick "handleButtonClick('-')"] [txt "-"];
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('7')"] [txt "7"];
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('8')"] [txt "8"];
@@ -111,17 +118,18 @@ let calculator_page display =
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('4')"] [txt "4"];
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('5')"] [txt "5"];
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('6')"] [txt "6"];
-          button ~a:[a_button_type `Button; a_class ["equals"]; a_onclick "handleButtonClick('=')"] [txt "="];
+          button ~a:[a_button_type `Button; a_class ["operator"]; a_onclick "handleButtonClick('*')"] [Unsafe.data "&times;"];
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('1')"] [txt "1"];
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('2')"] [txt "2"];
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('3')"] [txt "3"];
-          button ~a:[a_button_type `Button; a_class ["function"]; a_onclick "handleButtonClick('sin(')"] [txt "sin"];
+          button ~a:[a_button_type `Button; a_class ["operator"]; a_onclick "handleButtonClick('/')"] [Unsafe.data "&divide;"];
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('0')"] [txt "0"];
           button ~a:[a_button_type `Button; a_class ["decimal"]; a_onclick "handleButtonClick('.')"] [txt "."];
           button ~a:[a_button_type `Button; a_class ["parentheses"]; a_onclick "handleButtonClick('(')"] [txt "("];
           button ~a:[a_button_type `Button; a_class ["parentheses"]; a_onclick "handleButtonClick(')')"] [txt ")"];
-          button ~a:[a_button_type `Button; a_class ["function"]; a_onclick "handleButtonClick('cos(')"] [txt "cos"];
-        ]
+          button ~a:[a_button_type `Button; a_class ["equals"]; a_onclick "handleButtonClick('=')"] [txt "="];
+
+          ]
       ]
     ])
   |> Format.asprintf "%a" (Tyxml.Html.pp ())
