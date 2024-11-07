@@ -56,8 +56,9 @@ The project is containerized with Docker for easy deployment and cross-platform 
 
 ### The project structure includes:
 
-bin/: Contains the main entry point of the application.
-lib/: Includes the core logic for the calculator, layout definitions, and CSS handling.
-Dockerfile: Configuration for building and running the Docker container.
-calculator.opam: OPAM package definition for managing dependencies.
+- bin/: Contains the main entry point of the application.
+- lib/: Includes the core logic for the calculator, layout definitions, and CSS handling.
+- Dockerfile: Configuration for building and running the Docker container.
+- calculator.opam: OPAM package definition for managing dependencies.
+
 The application runs an Opium server that handles HTTP requests for the calculator operations and serves CSS file for styling the GUI. The server listens on port 3000, making the calculator accessible via web browser at http://localhost:3000.
