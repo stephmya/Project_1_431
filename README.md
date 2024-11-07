@@ -34,7 +34,7 @@ This will start the server, making the GUI accessible at `http://localhost:3000`
 
 ---
 
-### What This Program Does
+## What This Program Does
 This project is a web-based calculator app built with OCaml, the Dune build system, the Owl library for numerical computations, and Opium for the web server.
 
 The calculator supports basic arithmetic operations, trigonometric functions, and matrix operations. The GUI is styled with CSS and uses JavaScript to send expressions to the server for evaluation. The server uses Owl to compute the result and return it to the client.
@@ -54,7 +54,7 @@ The project is containerized with Docker for easy deployment and cross-platform 
 5. **Debugging** - Debugging this project was time consuming because there is no "hot reload" for OCaml. We had to rebuild the project every time we made a change and then restart the server. This made the process slower and more tedious than desired. 
 
 
-### The project structure includes:
+## The project structure includes:
 
 - bin/: Contains the main entry point of the application.
 - lib/: Includes the core logic for the calculator, layout definitions, and CSS handling.
