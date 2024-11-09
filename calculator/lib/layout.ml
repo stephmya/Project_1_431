@@ -1,4 +1,5 @@
 open Tyxml.Html
+
 let stylesheet = "
 /* styles.css */
 body {
@@ -71,28 +72,7 @@ body {
 let calculator_page display =
   html
     (head (title (txt "OCaml Calculator")) [
-       style [txt stylesheet];
-       script (txt "
-         function appendValue(value) {
-           const display = document.getElementById('display');
-           display.value += value;
-         }
-
-         function handleButtonClick(value) {
-           const display = document.getElementById('display');
-           if (value === 'C') {
-             display.value = '';
-           } else if (value === '=') {
-             try {
-               display.value = eval(display.value);
-             } catch (e) {
-               display.value = 'Error';
-             }
-           } else {
-             appendValue(value);
-           }
-         }
-       ")
+       style [txt stylesheet]
     ])
     (body [
       div ~a:[a_class ["calculator"]] [
@@ -107,29 +87,57 @@ let calculator_page display =
             a_autocomplete `Off;
             a_placeholder "0";
           ] (); 
-          button ~a:[a_button_type `Button; a_class ["clear"]; a_onclick "handleButtonClick('C')"] [txt "C"];
+          button ~a:[a_button_type `Button; a_class ["clear"]; a_onclick "handleButtonClick('clear')"] [txt "C"];
           button ~a:[a_button_type `Button; a_class ["function"]; a_onclick "handleButtonClick('cos(')"] [txt "cos"];
           button ~a:[a_button_type `Button; a_class ["function"]; a_onclick "handleButtonClick('sin(')"] [txt "sin"];
-          button ~a:[a_button_type `Button; a_class ["operator"]; a_onclick "handleButtonClick('-')"] [txt "-"];
+          button ~a:[a_button_type `Button; a_class ["function"]; a_onclick "handleButtonClick('tan(')"] [txt "tan"];
+
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('7')"] [txt "7"];
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('8')"] [txt "8"];
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('9')"] [txt "9"];
-          button ~a:[a_button_type `Button; a_class ["operator"]; a_onclick "handleButtonClick('+')"] [txt "+"];
+          button ~a:[a_button_type `Button; a_class ["operator"]; a_onclick "handleButtonClick('/')"] [Unsafe.data "&divide;"];
+
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('4')"] [txt "4"];
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('5')"] [txt "5"];
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('6')"] [txt "6"];
           button ~a:[a_button_type `Button; a_class ["operator"]; a_onclick "handleButtonClick('*')"] [Unsafe.data "&times;"];
+
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('1')"] [txt "1"];
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('2')"] [txt "2"];
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('3')"] [txt "3"];
-          button ~a:[a_button_type `Button; a_class ["operator"]; a_onclick "handleButtonClick('/')"] [Unsafe.data "&divide;"];
+          button ~a:[a_button_type `Button; a_class ["operator"]; a_onclick "handleButtonClick('-')"] [txt "-"];
+
           button ~a:[a_button_type `Button; a_class ["number"]; a_onclick "handleButtonClick('0')"] [txt "0"];
-          button ~a:[a_button_type `Button; a_class ["decimal"]; a_onclick "handleButtonClick('.')"] [txt "."];
           button ~a:[a_button_type `Button; a_class ["parentheses"]; a_onclick "handleButtonClick('(')"] [txt "("];
           button ~a:[a_button_type `Button; a_class ["parentheses"]; a_onclick "handleButtonClick(')')"] [txt ")"];
-          button ~a:[a_button_type `Button; a_class ["equals"]; a_onclick "handleButtonClick('=')"] [txt "="];
+          button ~a:[a_button_type `Button; a_class ["operator"]; a_onclick "handleButtonClick('+')"] [txt "+"];
 
-          ]
-      ]
+          button ~a:[a_button_type `Button; a_class ["equals"]; a_onclick "handleButtonClick('=')"] [txt "="];
+          button ~a:[a_button_type `Button; a_class ["decimal"]; a_onclick "handleButtonClick('.')"] [txt "."];
+          
+          button ~a:[a_button_type `Button; a_class ["matrix"]; a_onclick "handleButtonClick('transpose')"] [txt "T"];
+          button ~a:[a_button_type `Button; a_class ["matrix"]; a_onclick "handleButtonClick('invert')"] [txt "Inv"];
+        ]
+      ];
+      script (txt "
+        function appendValue(value) {
+          const display = document.getElementById('display');
+          display.value += value;
+        }
+
+        function handleButtonClick(value) {
+          var display = document.getElementById('display');
+          if (value === '=') {
+            display.value = eval(display.value);
+          } else if (value === 'clear') {
+            display.value = '';
+          } else if (value === 'transpose' || value === 'invert') {
+            display.value += ' ' + value;
+            document.getElementById('calcForm').submit();
+          } else {
+            display.value += value;
+          }
+        }
+      ")
     ])
   |> Format.asprintf "%a" (Tyxml.Html.pp ())
