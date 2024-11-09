@@ -5,5 +5,5 @@
 (library
  (name calculator_lib)
  ; (public_name calculator_lib)
- (modules calculator layout css)
+ (modules calculator layout)
  (libraries owl opium tyxml str))
