@@ -1,7 +1,0 @@
-# dune init proj calculator
-# OCAMLPARAM: unset
-# Shared cache: disabled
-# Shared cache location: /Users/erikvodanovic/.cache/dune/db
-# Workspace root: "/Users/erikvodanovic/Downloads/Suny Poly/Principle Of
-# Programming Languages/project_1/Project_1_431/calculator"
-# Auto-detected concurrency: 10
