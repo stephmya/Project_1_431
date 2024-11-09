@@ -47,3 +47,36 @@ name = "Done"
   checkList = [ ]
   priority = ""
   linkCommits = [ ]
+
+  [[processes.tasks]]
+  id = "nvz446kg3v1izjax0qtkuzig"
+  title = "Resolving css issue"
+  description = "<p>The css in the project was not working so we had to imbed the css in the same page as out components</p>"
+  tag = "backlog"
+  linkFiles = [ ]
+  dueDate = "2024-11-04T05:00:00.000Z"
+  checkList = [ ]
+  priority = ""
+  linkCommits = [ ]
+
+  [[processes.tasks]]
+  id = "k4i7a8m8oeakhyerk1c8cyyb"
+  title = "Buttons not allowing click "
+  description = "<p>We faced an issue with the button functionality not working once we implemented sin and cos. We fixed it by editing the handle click function.</p>"
+  tag = "backlog"
+  linkFiles = [ ]
+  dueDate = "2024-11-04T05:00:00.000Z"
+  checkList = [ ]
+  priority = ""
+  linkCommits = [ ]
+
+  [[processes.tasks]]
+  id = "ujsm5xm2jvp2779o3tf41cdx"
+  title = "Calculator formatting"
+  description = "<p>The calculator format was scrambled in the GUI. We fixed this by changing the order of the buttons.</p>"
+  tag = "backlog"
+  linkFiles = [ ]
+  dueDate = "2024-11-06T05:00:00.000Z"
+  checkList = [ ]
+  priority = ""
+  linkCommits = [ ]

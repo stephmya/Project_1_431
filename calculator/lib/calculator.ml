@@ -20,13 +20,15 @@ let matrix_operations mat1 mat2 operator =
   | _ -> failwith "Unknown operator"
 
 (* Evaluate expression using Owl Matrices, supporting sin cos tan functions *)
+(* Evaluate expression using Owl Matrices, supporting sin cos tan functions *)
 let evaluate_expression expr =
   try
-    (* Check for sin, cos, and tan functions *)
-    let func_re = Str.regexp "\\(sin\\|cos\\|tan\\)(\\([0-9]+\\.?[0-9]*\\))" in
+    (* Check for sin and cos functions *)
+    let func_re = Str.regexp "\\(sin\\|cos\\|tan\\)(\\([0-9.]+\\))" in
     if Str.string_match func_re expr 0 then (
       let func = Str.matched_group 1 expr in
       let angle = Str.matched_group 2 expr |> float_of_string in
+      Printf.printf "Matched function: %s, angle: %f\n" func angle;
       Printf.printf "Matched function: %s, angle: %f\n" func angle;
       let radians = Owl.Mat.of_array [|angle *. (Float.pi /. 180.)|] 1 1 in (* Convert to radians *)
 
@@ -35,15 +37,18 @@ let evaluate_expression expr =
         | "sin" -> Owl.Mat.sin radians
         | "cos" -> Owl.Mat.cos radians
         | "tan" -> Owl.Mat.tan radians
-        | _ -> failwith "Unknown function"
+        | _ -> failwith "Unknown trigonometric function"
       in
+
+      (* Extract and return the result as a string *)
       let result_value = Owl.Mat.get result 0 0 in
       Printf.printf "Calculated result: %f\n" result_value;
       string_of_float result_value
-    ) else (
-      (* Check for basic arithmetic operations *)
-      let expr_re = Str.regexp "\\([0-9]+\\.?[0-9]*\\)\\([+\\-*/]\\)\\([0-9]+\\.?[0-9]*\\)" in
-      if Str.string_match expr_re expr 0 then (
+    )
+    (* Check for basic arithmetic expressions *)
+    else
+      let re = Str.regexp "\\([0-9]+\\)\\([-+*/]\\)\\([0-9]+\\)" in
+      if Str.string_match re expr 0 then (
         let operand1 = Str.matched_group 1 expr |> float_of_string in
         let operator = Str.matched_group 2 expr in
         let operand2 = Str.matched_group 3 expr |> float_of_string in
@@ -55,6 +60,9 @@ let evaluate_expression expr =
 
         (* Perform matrix operation *)
         let result = matrix_operations mat1 mat2 operator in
+        let result_value = Owl.Mat.get result 0 0 in
+        Printf.printf "Calculated result: %f\n" result_value;
+        string_of_float result_value
         let result_value = Owl.Mat.get result 0 0 in
         Printf.printf "Calculated result: %f\n" result_value;
         string_of_float result_value
