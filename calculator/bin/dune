@@ -1,4 +1,4 @@
 (executable
- (public_name calculator)
  (name main)
- (libraries calculator))
+ (public_name calculator)
+ (libraries calculator_lib opium))

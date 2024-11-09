@@ -36,3 +36,14 @@ name = "Done"
   checkList = [ ]
   priority = ""
   linkCommits = [ ]
+
+  [[processes.tasks]]
+  id = "fm9g3hni0v7fqav0tl28wyux"
+  title = "met to build project base"
+  description = "Built most of project base, working toward containerizing the project so that it can run crossplatform on mac due to owl issues."
+  tag = "backlog"
+  linkFiles = [ ]
+  dueDate = "10/21/24"
+  checkList = [ ]
+  priority = ""
+  linkCommits = [ ]

@@ -1,3 +1,9 @@
+; (library
+;  (name calculator))
+
+
 (library
- (name calculator)
- (libraries <dependencies>))
+ (name calculator_lib)
+ ; (public_name calculator_lib)
+ (modules calculator layout)
+ (libraries owl opium tyxml str))
