@@ -112,11 +112,8 @@ let calculator_page display =
           button ~a:[a_button_type `Button; a_class ["parentheses"]; a_onclick "handleButtonClick(')')"] [txt ")"];
           button ~a:[a_button_type `Button; a_class ["operator"]; a_onclick "handleButtonClick('+')"] [txt "+"];
 
-          button ~a:[a_button_type `Button; a_class ["equals"]; a_onclick "handleButtonClick('=')"] [txt "="];
+          button ~a:[a_button_type `Button; a_class ["equals"]; a_onclick "submitCalculation(event)"] [txt "="];
           button ~a:[a_button_type `Button; a_class ["decimal"]; a_onclick "handleButtonClick('.')"] [txt "."];
-          
-          button ~a:[a_button_type `Button; a_class ["matrix"]; a_onclick "handleButtonClick('transpose')"] [txt "T"];
-          button ~a:[a_button_type `Button; a_class ["matrix"]; a_onclick "handleButtonClick('invert')"] [txt "Inv"];
         ]
       ];
       script (txt "
@@ -127,17 +124,24 @@ let calculator_page display =
 
         function handleButtonClick(value) {
           var display = document.getElementById('display');
-          if (value === '=') {
-            display.value = eval(display.value);
-          } else if (value === 'clear') {
+          if (value === 'clear') {
             display.value = '';
-          } else if (value === 'transpose' || value === 'invert') {
-            display.value += ' ' + value;
-            document.getElementById('calcForm').submit();
           } else {
             display.value += value;
           }
         }
+
+        function submitCalculation(event) {
+          event.preventDefault();
+          document.getElementById('calcForm').submit();
+        }
+
+        // Add form submit handler
+        document.getElementById('calcForm').onsubmit = function(event) {
+          if (event.key === 'Enter' || event.type === 'submit') {
+            return true;
+          }
+        };
       ")
     ])
   |> Format.asprintf "%a" (Tyxml.Html.pp ())

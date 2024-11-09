@@ -1,7 +1,7 @@
 open Opium
 module Calculator = Calculator_lib.Calculator
 module Layout = Calculator_lib.Layout
-module Css = Calculator_lib.Css
+(* module Css = Calculator_lib.Css *)
 
 (* Handler for the index page *)
 let handle_index _ =
@@ -31,8 +31,8 @@ let handle_calculation req =
 (* Main entry point of the application *)
 let () =
   App.empty
-  |> App.get "/" handle_index  (* Route for the index page *)
-  |> App.post "/calculate" handle_calculation  (* Route for form submission *)
-  |> App.get "../styles.css" Css.handle_stylesheet  (* Route for CSS stylesheet *)
-  |> App.port 3000  (* Set the port to 3000 *)
-  |> App.run_command  (* Run the application *)
+  |> App.get "/" handle_index
+  |> App.post "/calculate" handle_calculation
+  (* |> App.get "../styles.css" Css.handle_stylesheet *)
+  |> App.port 3000
+  |> App.run_command

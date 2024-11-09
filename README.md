@@ -32,6 +32,17 @@ docker run -p 3000:3000 ocaml-project
 
 This will start the server, making the GUI accessible at `http://localhost:3000`.
 
+### Running the Project
+What can you do with this project?
+Basic Arithmetic Operations and Trigonometric Functions.
+Try running these:
+- 2 + 2 = 4
+- 10 - 5 = 5
+- 4 * 3 = 12
+- 15 / 3 = 5
+- sin(30)
+- cos(60)
+- tan(45)
 ---
 
 ## What This Program Does
